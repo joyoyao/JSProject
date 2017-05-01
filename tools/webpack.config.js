@@ -76,8 +76,27 @@ const config = {
           ],
         },
       },
+        {
+        test: /\.css$/,
+        include: [/node_modules\/.*antd/],
+        use: [
+          {
+            loader: 'style-loader',
+          },
+           {
+             loader: 'css-loader',
+           },
+           {
+            loader: 'postcss-loader',
+            options: {
+              config: './tools/postcss.config.js',
+             },
+         },
+       ],
+      },
       {
         test: /\.css/,
+        exclude: [/node_modules\/.*antd/],
         use: [
           {
             loader: 'isomorphic-style-loader',
@@ -328,5 +347,6 @@ const serverConfig = {
 
   devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
 };
-
+clientConfig.module.rules[0].query.plugins = [...clientConfig.module.rules[0].query.plugins];
+clientConfig.module.rules[0].query.plugins.push(['import', { libraryName: 'antd', style: 'css' }]);
 export default [clientConfig, serverConfig];

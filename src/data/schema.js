@@ -14,14 +14,25 @@ import {
 
 import me from './queries/me';
 import news from './queries/news';
+// import findUser from './queries/findUser';
+import createUser from './queries/createUser';
 
 const schema = new Schema({
   query: new ObjectType({
     name: 'Query',
     fields: {
+      // findUser,
       me,
       news,
     },
+  }),
+  mutation: new ObjectType({
+    name: 'Mutation',
+    description: "修改数据",
+    fields: {
+      createUser
+
+    }
   }),
 });
 
